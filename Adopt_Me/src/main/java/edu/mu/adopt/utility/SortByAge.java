@@ -8,8 +8,7 @@ public class SortByAge implements Comparator<Pet>{
 
 	@Override
 	public int compare(Pet o1, Pet o2) {
-		// TODO Auto-generated method stub
-		return 0;
+		return Integer.compare(o1.getAge(), o2.getAge());
 	}
 
 }
