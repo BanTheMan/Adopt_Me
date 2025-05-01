@@ -5,18 +5,32 @@ package edu.mu.adopt.model;
  */
 public abstract class Pet implements Comparable<Pet> {
 	
-    private Integer id;
+    private String id;
     private String name;
     private String type;
     private String species;
     private Integer age;
     private boolean adopted;
     
-    public Integer getId() {
+    public Pet(String id,
+    		String name,
+    		String type,
+    		String species,
+    		Integer age,
+    		boolean adopted) {
+    	setId(id);
+    	setName(name);
+    	setType(type);
+    	setSpecies(species);
+    	setAge(age);
+    	setAdopted(adopted);
+	}
+    
+    public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
