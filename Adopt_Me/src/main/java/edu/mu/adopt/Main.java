@@ -5,7 +5,6 @@ import edu.mu.adopt.model.ExoticAnimalAdapter;
 import edu.mu.adopt.model.Pet;
 import edu.mu.adopt.model.Shelter;
 import edu.mu.adopt.utility.HandleJSON;
-import edu.mu.adopt;
 import java.util.ArrayList;
 import java.util.List;
 
