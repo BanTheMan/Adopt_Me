@@ -39,7 +39,7 @@ public class HandleJSON {
 	
 	private static <T> void saveToJson(List <T> list, String base) {
 		Gson gson = new Gson();
-		String json = gson.ToJson(list);
+		String json = gson.toJson(list);
 		String time = DateTimeFormatter.ofPattern("YYYYMMDD_HHMMSS_").format(LocalDateTime.now());
 		String filename = time + " " + base + ".json";
 		
