@@ -1,5 +1,7 @@
 package edu.mu.adopt.model;
 
+import java.util.Objects;
+
 /**
  * MVC Model
  */
@@ -74,9 +76,34 @@ public abstract class Pet implements Comparable<Pet> {
 		this.adopted = adopted;
 	}
 	
-	@Override
-	public int compareTo(Pet o) {
-		// Compare name
-		return 0;
+	public String viewDetails() {
+		return "Pet [id=" + id + ", name=" + name + ", type=" + type + ", species=" + species + ", age=" + age
+				+ ", adopted=" + adopted + "]";
 	}
+	
+	@Override
+	public int compareTo(Pet pet) {
+		// Compare name
+		return this.getName().compareTo(pet.getName());
+	}
+
+	@Override
+	public String toString() {
+		return getName() + ": " + getAge().toString() + " year old " + getType();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Pet pet = (Pet) obj;
+		if (this.id.equals(pet.getId())) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.id);
+	}
+	
 }
