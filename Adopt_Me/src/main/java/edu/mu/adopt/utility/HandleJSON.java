@@ -55,8 +55,4 @@ public class HandleJSON {
 	private static void savePetList(List <Pet> pets) {
 		saveToJson(pets, "pets");
 	}
-	
-	private static void saveExoticAnimalsList(List <ExoticAnimal> animals) {
-		saveToJson(animals, "exotic_animals");
-	}
 }
