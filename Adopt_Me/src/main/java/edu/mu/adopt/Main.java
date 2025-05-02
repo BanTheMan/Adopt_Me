@@ -1,6 +1,7 @@
 package edu.mu.adopt;
 
 import edu.mu.adopt.model.ExoticAnimal;
+import edu.mu.adopt.view.AdoptionView;
 import edu.mu.adopt.model.ExoticAnimalAdapter;
 import edu.mu.adopt.model.Pet;
 import edu.mu.adopt.model.Shelter;
@@ -11,6 +12,8 @@ import java.util.List;
 public class Main {
 
 	public static void main(String[] args) {
+		
+		AdoptionView.launch();
 		
 		List<Pet> pets = HandleJSON.loadpet();
 		List<ExoticAnimal> epets = HandleJSON.loadexoticanimal();
