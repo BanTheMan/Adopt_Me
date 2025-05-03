@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import edu.mu.adopt.model.Pet;
 
-public class SortBySpecies implements Comparator<Pet> {
+public class SortBySpecies<T extends Pet> implements Comparator<T> {
 
 	@Override
 	public int compare(Pet o1, Pet o2) {
