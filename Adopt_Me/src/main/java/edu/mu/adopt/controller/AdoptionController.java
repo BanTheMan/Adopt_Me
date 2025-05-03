@@ -1,7 +1,14 @@
 package edu.mu.adopt.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import edu.mu.adopt.model.ExoticAnimal;
+import edu.mu.adopt.model.ExoticAnimalAdapter;
 import edu.mu.adopt.model.Home;
 import edu.mu.adopt.model.Pet;
 import edu.mu.adopt.model.Shelter;
@@ -10,7 +17,7 @@ import edu.mu.adopt.view.AdoptionView;
 
 public class AdoptionController <T extends Pet> {
 	
-	private Shelter shelter;
+	private Shelter<T> shelter;
 	private Home home;
 	private AdoptionView view;
 	private HandleJSON jsonHandler;
@@ -25,93 +32,185 @@ public class AdoptionController <T extends Pet> {
 		
 		setupActionListeners();
 		
-//		loadPetsFromFiles();
+		loadPetsFromFiles();
 		
-//		updateView();
+		updateView();
 	}
 	
 	private void setupActionListeners() {
         view.addActionListeners(
-            e -> addButtonPressed(null),           // Add button
-            e -> adoptPetButtonPressed(null),         // Adopt button
-            e -> removePetButtonPressed(null) ,        // Remove button
-            e -> viewDetailsButtonPressed(null),      // View Details button
-            e -> saveButtonPressed(null),         // Save button
+            e -> addButtonPressed(),           // Add button
+            e -> adoptPetButtonPressed(),         // Adopt button
+            e -> removePetButtonPressed() ,        // Remove button
+            e -> viewDetailsButtonPressed(),      // View Details button
+            e -> saveButtonPressed(),         // Save button
             e -> sortSelectionPressed()          // Sort combo box
         );
     }
 	
-	public <T extends Pet> void addButtonPressed(T pet) {
-//        String[][] importablePetsData = ;
-//        
-//        // Show dialog with importable pets
-//        int selectedIndex = view.showImportablePetsDialog(importablePetsData);
-//        
-//        if (selectedIndex >= 0) {
-//            // Get the selected pet from the importable list
-//            List<T> importablePetsList = new ArrayList<>(shelter.getImportablePets());
-//            if (selectedIndex < importablePetsList.size()) {
-//                T selectedPet = importablePetsList.get(selectedIndex);
-//                
-//                // Add the pet to stock (which also removes it from importable)
-//                shelter.addPet(selectedPet);
-//                
-//                view.showMessage("Pet imported successfully!", "Import Successful", JOptionPane.INFORMATION_MESSAGE);
-//                updateView();
-//            }
-//        }
+	private void addButtonPressed() {
+		// Get importable pets in table form
+		String[][] importablePets = convertImportableToTableData();
+		
+		// TODO:
+		// Show importable pets in view
+		// Get index
+		int selectedIndex;
+		
+		if (selectedIndex >= 0) {
+			// Get selected pet
+			List<T> importablePetsList = (List<T>) getSortedImportablePets();
+			// Check in range
+			if (selectedIndex < importablePetsList.size()) {
+				// Add pet
+				boolean added = shelter.addPet(importablePetsList.get(selectedIndex));
+				
+				if (added) {
+					// TODO: success message
+				} else {
+					// TODO: failure message
+				}
+				updateView();
+			}
+		} else {
+			// TODO: pet not selected message
+		}
 	}
 	
-	public <T extends Pet> void importExoticPet(T pet) {
+	private Set<T> importExoticPets(Set<ExoticAnimal> exoticAnimals) {
+		Set<T> tamedExoAnis = new HashSet<T>();
+		for (ExoticAnimal exoAni : exoticAnimals) {
+			tamedExoAnis.add((T) new ExoticAnimalAdapter(exoAni));
+		}
+		return tamedExoAnis;
+	}
+	
+	private void adoptPetButtonPressed() {
+		// Get selected pet
+		int selectedIndex;
+		if (selectedIndex >= 0) {
+			List<T> petsInStockList = (List<T>) getSortedInStockPets();
+			// Check in range
+			if (selectedIndex < petsInStockList.size()) {
+				T selectedPet = petsInStockList.get(selectedIndex);
+				
+				// Check if adopted
+				if (selectedPet.isAdopted()) {
+					// TODO: pet is already adopted message
+				} else {
+					selectedPet.setAdopted(true);
+					// TODO: adopted pet message. Move to home? 
+					updateView();
+				}
+			}
+		} else {
+			// TODO: pet not selected message
+		}
 		
 	}
 	
-	public <T extends Pet> void adoptPetButtonPressed(T pet) {
-		// Remove pet from shelter
-		// Place pet in home
+	private void removePetButtonPressed() {
+		// Get selected pet
+		int selectedIndex;
+		if (selectedIndex >= 0) {
+			List<T> petsInStockList = (List<T>) getSortedInStockPets();
+			// Check in range
+			if (selectedIndex < petsInStockList.size()) {
+				T selectedPet = petsInStockList.get(selectedIndex);
+				
+				// Remove from stock
+				
+			}
+		}
+	}
+	
+	private void viewDetailsButtonPressed() {
 		
 	}
 	
-	public <T extends Pet> void removePetButtonPressed(T pet) {
+	private void saveButtonPressed() {
 		
 	}
 	
-	public <T extends Pet> void viewDetailsButtonPressed(T pet) {
+	private void sortSelectionPressed() {
 		
 	}
 	
-	public <T extends Pet> void saveButtonPressed(T pet) {
-		
+	private void loadPetsFromFiles() {
+		shelter.setPetsInStock((Set<T>) jsonHandler.loadpets());
+		shelter.setImportablePets(importExoticPets(jsonHandler.loadexoticanimals()));
 	}
 	
-	public void sortSelectionPressed() {
-		
+	private List<T> getSortedInStockPets() {
+		// Get pets from shelter
+        Set<T> petsInStock = shelter.getPetsInStock();
+        // Change to List for sorting
+        List<T> petsList = new ArrayList<>(petsInStock); 
+        
+        if (currentFilter != null) {
+            petsList.sort(currentFilter);
+        } else {
+            // Use natural ordering (Comparable implementation) if no comparator is set
+            Collections.sort(petsList);
+        }
+        
+        return petsList;
 	}
 	
-	private String[][] convertPetsToTableData() {
-//        // Get pets from shelter and sort them if a comparator is set
-//        List<T> petsInStock = new ArrayList<>(shelter.getPetsInStock());
-//        
-//        if (currentComparator != null) {
-//            petsInStock.sort(currentComparator);
-//        } else {
-//            // Use natural ordering (Comparable implementation) if no comparator is set
-//            Collections.sort(petsInStock);
-//        }
-//        
-//        // Convert to table data format
-//        String[][] tableData = new String[petsInStock.size()][4];
-//        
-//        for (int i = 0; i < petsInStock.size(); i++) {
-//            T pet = petsInStock.get(i);
-//            tableData[i][0] = pet.getName();
-//            tableData[i][1] = pet.getSpecies();
-//            tableData[i][2] = String.valueOf(pet.getAge());
-//            tableData[i][3] = pet.isAdopted() ? "Adopted" : "Available";
-//        }
-//        
-//        return tableData;
-		return null;
+	private String[][] convertStockToTableData() {
+		List<T> petsList = getSortedInStockPets();
+        
+        // Convert to table data format
+        String[][] tableData = new String[petsList.size()][4];
+        
+        for (int i = 0; i < petsList.size(); i++) {
+            T pet = petsList.get(i);
+            tableData[i][0] = pet.getName();
+            tableData[i][1] = pet.getSpecies();
+            tableData[i][2] = String.valueOf(pet.getAge());
+            // TODO: Display or move to home?
+            tableData[i][3] = pet.isAdopted() ? "Adopted" : "Available";
+        }
+        
+        return tableData;
     }
+	
+	private List<T> getSortedImportablePets() {
+		// Get pets from shelter
+        Set<T> importableAnimals = shelter.getPetsInStock();
+        // Change to List for sorting
+        List<T> exoAniList = new ArrayList<>(importableAnimals); 
+        
+        if (currentFilter != null) {
+        	exoAniList.sort(currentFilter);
+        } else {
+            // Use natural ordering (Comparable implementation) if no comparator is set
+            Collections.sort(exoAniList);
+        }
+        
+        return exoAniList;
+	}
+	
+	private String[][] convertImportableToTableData() {
+        List<T> exoAniList = getSortedImportablePets();
+        
+        // Convert to table data format
+        String[][] tableData = new String[exoAniList.size()][4];
+        
+        for (int i = 0; i < exoAniList.size(); i++) {
+            T pet = exoAniList.get(i);
+            tableData[i][0] = pet.getName();
+            tableData[i][1] = pet.getSpecies();
+            tableData[i][2] = String.valueOf(pet.getAge());
+            // TODO: Display or move to home?
+            tableData[i][3] = pet.isAdopted() ? "Adopted" : "Available";
+        }
+        
+        return tableData;
+    }
+	
+	private void updateView() {
+		
+	}
 
 }
