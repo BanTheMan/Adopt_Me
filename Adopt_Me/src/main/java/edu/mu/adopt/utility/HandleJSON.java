@@ -17,7 +17,7 @@ import java.lang.reflect.Type;
 /**
  * Class for loading and saving JSON files
  */
-public class HandleJSON {
+public class HandleJSON<T extends Pet> {
 	
 	public Set<Pet> loadpets() {
 		return loadFromJson("pets.json", new TypeToken <Set<Pet>>() {}.getType());
@@ -38,7 +38,7 @@ public class HandleJSON {
 		}
 	}
 	
-	private <T> void saveToJson(Set <T> set, String base) {
+	private void saveToJson(Set <T> set, String base) {
 		Gson gson = new Gson();
 		String json = gson.toJson(set);
 		String time = DateTimeFormatter.ofPattern("yyyyMMDD_HHMMSS_").format(LocalDateTime.now());
@@ -53,7 +53,7 @@ public class HandleJSON {
 		}
 	}
 	
-	public void savePetList(Set <Pet> pets) {
+	public void savePetList(Set <T> pets) {
 		saveToJson(pets, "pets");
 	}
 }
