@@ -18,11 +18,11 @@ import java.lang.reflect.Type;
  */
 public class HandleJSON {
 	
-	public static List<Pet> loadpet() {
+	public static List<Pet> loadpets() {
 		return loadFromJson("pets.json", new TypeToken <List<Pet>>() {}.getType());
 	}
 	
-	public static List<ExoticAnimal> loadexoticanimal() {
+	public static List<ExoticAnimal> loadexoticanimals() {
 		return loadFromJson("exotic_animals.json", new TypeToken <List<ExoticAnimal>>() {}.getType());
 	}
 	
