@@ -24,7 +24,7 @@ public class HandleJSON {
 	}
 	
 	public Set<ExoticAnimal> loadexoticanimals() {
-		return loadFromJson("exotic_animals.json", new TypeToken <List<ExoticAnimal>>() {}.getType());
+		return loadFromJson("exotic_animals.json", new TypeToken <Set<ExoticAnimal>>() {}.getType());
 	}
 	
 	private <T> Set<T> loadFromJson(String fileName, Type type) {
@@ -41,8 +41,8 @@ public class HandleJSON {
 	private <T> void saveToJson(Set <T> set, String base) {
 		Gson gson = new Gson();
 		String json = gson.toJson(set);
-		String time = DateTimeFormatter.ofPattern("YYYYMMDD_HHMMSS_").format(LocalDateTime.now());
-		String filename = time + " " + base + ".json";
+		String time = DateTimeFormatter.ofPattern("yyyyMMDD_HHMMSS_").format(LocalDateTime.now());
+		String filename = time + "_" + base + ".json";
 		
 		try(FileWriter writer = new FileWriter(filename)) {
 			writer.write(json);
@@ -53,7 +53,7 @@ public class HandleJSON {
 		}
 	}
 	
-	private void savePetList(Set <Pet> pets) {
+	public void savePetList(Set <Pet> pets) {
 		saveToJson(pets, "pets");
 	}
 }
