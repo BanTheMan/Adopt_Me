@@ -93,12 +93,14 @@ public class Shelter<T extends Pet> {
 	 * Add pet into stock from importable set
 	 * @param redeemedPet
 	 */
-	public void addPet(T redeemedPet) {
+	public boolean addPet(T redeemedPet) {
 		// If pet is importable, add to stock
 		if (isImportable(redeemedPet)) {
 			removeImportablePet(redeemedPet);
 			addPetToStock(redeemedPet);
+			return true;
 		}
+		return false;
 		// TODO: add fail message: Pet is not importable
 	}
 	
@@ -106,6 +108,7 @@ public class Shelter<T extends Pet> {
 		if (isInStock(badPet)) {
 			removePetFromStock(badPet);
 			addImportablePet(badPet);
+			return true;
 		}
 		// TODO: add fail message: Pet not in stock or not in shelter
 		return false;
