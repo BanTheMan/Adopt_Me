@@ -28,7 +28,7 @@ public class AdoptionView {
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		
 		JPanel topPanel = new JPanel();
-		sortComboBox = new JComboBox<>(new String[] {"Sort by Name", "Sort by Age", "Sort by Species"});
+		sortComboBox = new JComboBox<>(new String[] {"Name", "Age", "Species"});
 		topPanel.add(new JLabel("Sort By:"));
 		topPanel.add(sortComboBox);
 		mainPanel.add(topPanel, BorderLayout.NORTH);
@@ -42,7 +42,7 @@ public class AdoptionView {
 		};
 		petTable = new JTable(tableModel);
 		petTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // be able to select pets in table
-		JScrollPane scrolePane = new JScrollPane(petTable); // be able to scroll through table
+		JScrollPane scrollPane = new JScrollPane(petTable); // be able to scroll through table
 		mainPanel.add(new JScrollPane(petTable), BorderLayout.CENTER);
 		
 		JPanel bottomPanel = new JPanel();
@@ -96,5 +96,9 @@ public class AdoptionView {
 	public int getSelectedPetIndex() {
         return petTable.getSelectedRow();
     }
+	
+	public String getSelectedSortOption() {
+		return (String) sortComboBox.getSelectedItem();
+	}
 	
 }
