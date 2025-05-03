@@ -3,7 +3,7 @@ package edu.mu.adopt.model;
 /**
  * Adapter to wrap the ExoticAnimal class for compatibility with Pet in Controller
  */
-public class ExoticAnimalAdapter extends Pet {
+public class ExoticAnimalAdapter<T extends Pet> extends Pet {
 	
 	private ExoticAnimal exoticAnimal;
 
