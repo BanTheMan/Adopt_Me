@@ -19,15 +19,15 @@ import java.lang.reflect.Type;
  */
 public class HandleJSON {
 	
-	public static Set<Pet> loadpets() {
+	public Set<Pet> loadpets() {
 		return loadFromJson("pets.json", new TypeToken <Set<Pet>>() {}.getType());
 	}
 	
-	public static Set<ExoticAnimal> loadexoticanimals() {
+	public Set<ExoticAnimal> loadexoticanimals() {
 		return loadFromJson("exotic_animals.json", new TypeToken <List<ExoticAnimal>>() {}.getType());
 	}
 	
-	private static <T> Set<T> loadFromJson(String fileName, Type type) {
+	private <T> Set<T> loadFromJson(String fileName, Type type) {
 		try(InputStream is = HandleJSON.class.getClassLoader().getResourceAsStream(fileName);
 				InputStreamReader reader = new InputStreamReader(is)) 
 		{
@@ -38,7 +38,7 @@ public class HandleJSON {
 		}
 	}
 	
-	private static <T> void saveToJson(Set <T> set, String base) {
+	private <T> void saveToJson(Set <T> set, String base) {
 		Gson gson = new Gson();
 		String json = gson.toJson(set);
 		String time = DateTimeFormatter.ofPattern("YYYYMMDD_HHMMSS_").format(LocalDateTime.now());
@@ -53,7 +53,7 @@ public class HandleJSON {
 		}
 	}
 	
-	private static void savePetList(Set <Pet> pets) {
+	private void savePetList(Set <Pet> pets) {
 		saveToJson(pets, "pets");
 	}
 }
