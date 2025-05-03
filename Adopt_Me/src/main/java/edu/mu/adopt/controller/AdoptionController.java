@@ -1,5 +1,6 @@
 package edu.mu.adopt.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,6 +14,8 @@ import edu.mu.adopt.model.Home;
 import edu.mu.adopt.model.Pet;
 import edu.mu.adopt.model.Shelter;
 import edu.mu.adopt.utility.HandleJSON;
+import edu.mu.adopt.utility.SortByAge;
+import edu.mu.adopt.utility.SortBySpecies;
 import edu.mu.adopt.view.AdoptionView;
 
 public class AdoptionController <T extends Pet> {
@@ -40,6 +43,7 @@ public class AdoptionController <T extends Pet> {
 	private void setupActionListeners() {
         view.addActionListeners(
             e -> addButtonPressed(),           // Add button
+            e -> importButtonPressed(),
             e -> adoptPetButtonPressed(),         // Adopt button
             e -> removePetButtonPressed() ,        // Remove button
             e -> viewDetailsButtonPressed(),      // View Details button
@@ -52,13 +56,16 @@ public class AdoptionController <T extends Pet> {
 		// Get importable pets in table form
 		String[][] importablePets = convertImportableToTableData();
 		
-		// TODO:
-		// Show importable pets in view
-		// Get index
-		int selectedIndex;
+		// TODO: display importable set table
+		// TODO: change bottom panel to be import button
+	}
+	
+	private void importButtonPressed() {
+		// Get selected pet to be imported
+		int selectedIndex = view.getSelectedPetIndex();
 		
 		if (selectedIndex >= 0) {
-			// Get selected pet
+			// Get selected pet object
 			List<T> importablePetsList = (List<T>) getSortedImportablePets();
 			// Check in range
 			if (selectedIndex < importablePetsList.size()) {
@@ -87,7 +94,7 @@ public class AdoptionController <T extends Pet> {
 	
 	private void adoptPetButtonPressed() {
 		// Get selected pet
-		int selectedIndex;
+		int selectedIndex = view.getSelectedPetIndex();
 		if (selectedIndex >= 0) {
 			List<T> petsInStockList = (List<T>) getSortedInStockPets();
 			// Check in range
@@ -111,7 +118,7 @@ public class AdoptionController <T extends Pet> {
 	
 	private void removePetButtonPressed() {
 		// Get selected pet
-		int selectedIndex;
+		int selectedIndex = view.getSelectedPetIndex();
 		if (selectedIndex >= 0) {
 			List<T> petsInStockList = (List<T>) getSortedInStockPets();
 			// Check in range
@@ -119,21 +126,74 @@ public class AdoptionController <T extends Pet> {
 				T selectedPet = petsInStockList.get(selectedIndex);
 				
 				// Remove from stock
+				boolean removed = shelter.removePet(selectedPet);
 				
+				if (removed) {
+					// TODO: success message
+				} else {
+					// TODO: failure message
+				}
+				updateView();
 			}
+		} else {
+			// TODO: no pet selected message
 		}
 	}
 	
 	private void viewDetailsButtonPressed() {
-		
+		// Get selected pet
+		int selectedIndex = view.getSelectedPetIndex();
+		if (selectedIndex >= 0) {
+			List<T> petsInStockList = (List<T>) getSortedInStockPets();
+			// Check in range
+			if (selectedIndex < petsInStockList.size()) {
+				T selectedPet = petsInStockList.get(selectedIndex);
+				
+				// Details
+				String[] petDetails = {
+					selectedPet.getName(),
+					selectedPet.getSpecies(),
+					String.valueOf(selectedPet.getAge()),
+					selectedPet.getType(),
+					selectedPet.isAdopted() ? "Adopted" : "Available"
+				};
+				
+				// TODO: Show details
+			}
+		} else {
+			// TODO: no pet selected message
+		}
 	}
 	
 	private void saveButtonPressed() {
+		// Get adopted pets
+		Set<T> adoptedPets = new HashSet<T>();
+		for (T pet : shelter.getPetsInStock()) {
+			adoptedPets.add(pet);
+		}
+		jsonHandler.savePetList(adoptedPets);
 		
+		// TODO: file saved message
 	}
 	
 	private void sortSelectionPressed() {
+		String sortOptionSelected = view.getSelectedSortOption();
 		
+		switch (sortOptionSelected) {
+			case "Name":
+				currentFilter = null;
+				break;
+			case "Age":
+				currentFilter = (Comparator<T>) new SortByAge<T>();
+				break;
+			case "Species":
+				currentFilter = (Comparator<T>) new SortBySpecies<T>();
+				break;
+			default:
+				currentFilter = null;
+		}
+		
+		updateView();
 	}
 	
 	private void loadPetsFromFiles() {
@@ -210,7 +270,8 @@ public class AdoptionController <T extends Pet> {
     }
 	
 	private void updateView() {
-		
+		String[][] tableData = convertStockToTableData();
+		view.updatePetTable(tableData);
 	}
 
 }
