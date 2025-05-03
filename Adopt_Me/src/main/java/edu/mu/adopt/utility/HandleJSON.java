@@ -2,6 +2,7 @@ package edu.mu.adopt.utility;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.Gson;
 import java.util.List;
+import java.util.Set;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import edu.mu.adopt.model.ExoticAnimal;
@@ -18,15 +19,15 @@ import java.lang.reflect.Type;
  */
 public class HandleJSON {
 	
-	public static List<Pet> loadpets() {
-		return loadFromJson("pets.json", new TypeToken <List<Pet>>() {}.getType());
+	public static Set<Pet> loadpets() {
+		return loadFromJson("pets.json", new TypeToken <Set<Pet>>() {}.getType());
 	}
 	
-	public static List<ExoticAnimal> loadexoticanimals() {
+	public static Set<ExoticAnimal> loadexoticanimals() {
 		return loadFromJson("exotic_animals.json", new TypeToken <List<ExoticAnimal>>() {}.getType());
 	}
 	
-	private static <T> List<T> loadFromJson(String fileName, Type type) {
+	private static <T> Set<T> loadFromJson(String fileName, Type type) {
 		try(InputStream is = HandleJSON.class.getClassLoader().getResourceAsStream(fileName);
 				InputStreamReader reader = new InputStreamReader(is)) 
 		{
@@ -37,9 +38,9 @@ public class HandleJSON {
 		}
 	}
 	
-	private static <T> void saveToJson(List <T> list, String base) {
+	private static <T> void saveToJson(Set <T> set, String base) {
 		Gson gson = new Gson();
-		String json = gson.toJson(list);
+		String json = gson.toJson(set);
 		String time = DateTimeFormatter.ofPattern("YYYYMMDD_HHMMSS_").format(LocalDateTime.now());
 		String filename = time + " " + base + ".json";
 		
@@ -52,7 +53,7 @@ public class HandleJSON {
 		}
 	}
 	
-	private static void savePetList(List <Pet> pets) {
+	private static void savePetList(Set <Pet> pets) {
 		saveToJson(pets, "pets");
 	}
 }
