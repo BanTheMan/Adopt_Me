@@ -68,6 +68,7 @@ public class AdoptionView {
 	
 	public void addActionListeners(
             ActionListener addListener,
+            ActionListener importListener,
             ActionListener adoptListener,
             ActionListener removeListener,
             ActionListener viewDetailsListener,
@@ -75,6 +76,7 @@ public class AdoptionView {
             ActionListener sortListener) {
         
         addButton.addActionListener(addListener);
+        // make importListener button and its action listener
         adoptButton.addActionListener(adoptListener);
         removeButton.addActionListener(removeListener);
         viewDetailsButton.addActionListener(viewDetailsListener);
