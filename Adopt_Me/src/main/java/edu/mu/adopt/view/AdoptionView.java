@@ -1,7 +1,10 @@
 package edu.mu.adopt.view;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * GUI
@@ -10,6 +13,7 @@ public class AdoptionView {
 
 	private JFrame frame;
 	private JTable petTable;
+	private DefaultTableModel tableModel;
 	private JComboBox<String> sortComboBox;
 	private JButton addButton, adoptButton, removeButton, viewDetailsButton, saveButton;
 	
@@ -26,11 +30,19 @@ public class AdoptionView {
 		JPanel topPanel = new JPanel();
 		sortComboBox = new JComboBox<>(new String[] {"Sort by Name", "Sort by Age", "Sort by Species"});
 		topPanel.add(new JLabel("Sort By:"));
+		topPanel.add(sortComboBox);
 		mainPanel.add(topPanel, BorderLayout.NORTH);
 		
 		String[] columns = {"Name", "Species", "Age"};
-		String[] [] emptyData = {};
-		petTable = new JTable(emptyData, columns);
+		tableModel = new DefaultTableModel(columns, 0) {
+			@Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // make table cells read-only
+            }
+		};
+		petTable = new JTable(tableModel);
+		petTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // be able to select pets in table
+		JScrollPane scrolePane = new JScrollPane(petTable); // be able to scroll through table
 		mainPanel.add(new JScrollPane(petTable), BorderLayout.CENTER);
 		
 		JPanel bottomPanel = new JPanel();
@@ -54,10 +66,35 @@ public class AdoptionView {
 		
 	}
 	
+	public void addActionListeners(
+            ActionListener addListener,
+            ActionListener adoptListener,
+            ActionListener removeListener,
+            ActionListener viewDetailsListener,
+            ActionListener saveListener,
+            ActionListener sortListener) {
+        
+        addButton.addActionListener(addListener);
+        adoptButton.addActionListener(adoptListener);
+        removeButton.addActionListener(removeListener);
+        viewDetailsButton.addActionListener(viewDetailsListener);
+        saveButton.addActionListener(saveListener);
+        sortComboBox.addActionListener(sortListener);
+    }
+	
 	public static void launch() {
 		SwingUtilities.invokeLater(AdoptionView::new);
 	}
 	
+	public void updatePetTable(String[][] data) {
+        tableModel.setRowCount(0); // Clear existing data
+        for (String[] row : data) {
+            tableModel.addRow(row);
+        }
+    }
 	
+	public int getSelectedPetIndex() {
+        return petTable.getSelectedRow();
+    }
 	
 }
