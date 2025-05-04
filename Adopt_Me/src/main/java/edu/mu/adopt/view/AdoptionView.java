@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 /**
  * GUI
  */
+/**
+ * Author: Nate Spencer
+ */
 public class AdoptionView {
 
 	private JFrame frame;
@@ -19,6 +22,9 @@ public class AdoptionView {
 	
 	
 	
+	/**
+	 * Sets up the visuals for the adoption center
+	 */
 	public AdoptionView() {
 		frame = new JFrame("Adopt Me - Pet Adoption Center");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,6 +72,15 @@ public class AdoptionView {
 		
 	}
 	
+	/**
+	 * @param addListener
+	 * @param adoptListener
+	 * @param removeListener
+	 * @param viewDetailsListener
+	 * @param saveListener
+	 * @param sortListener
+	 * Fill out pls.
+	 */
 	public void addActionListeners(
             ActionListener addListener,
             ActionListener adoptListener,
@@ -82,10 +97,17 @@ public class AdoptionView {
         sortComboBox.addActionListener(sortListener);
     }
 	
+	/**
+	 * Launch GUI
+	 */
 	public static void launch() {
 		SwingUtilities.invokeLater(AdoptionView::new);
 	}
 	
+	/**
+	 * @param data
+	 * Updates the pet table
+	 */
 	public void updatePetTable(String[][] data) {
         tableModel.setRowCount(0); // Clear existing data
         for (String[] row : data) {
@@ -93,22 +115,42 @@ public class AdoptionView {
         }
     }
 	
+	/**
+	 * @return
+	 */
 	public int getSelectedPetIndex() {
         return petTable.getSelectedRow();
     }
 	
+	/**
+	 * @return
+	 */
 	public String getSelectedSortOption() {
 		return (String) sortComboBox.getSelectedItem();
 	}
 	
+	/**
+	 * @param importablePets
+	 * @return fill out
+	 */
 	public int addImportableDialog(String[][] importablePets) {
 		return 0;
 	}
 	
+	/**
+	 * @param petDetails
+	 * Allows viewing of pet details
+	 */
 	public void petDetailsDialog(String[] petDetails) {
 		
 	}
 	
+	/**
+	 * @param message
+	 * @param title
+	 * @param messageType
+	 * Shows message
+	 */
 	public void showMessage(String message, String title, int messageType) {
         JOptionPane.showMessageDialog(frame, message, title, messageType);
     }

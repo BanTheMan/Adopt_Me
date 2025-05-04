@@ -8,55 +8,79 @@ import java.time.format.DateTimeFormatter;
 import edu.mu.adopt.model.ExoticAnimal;
 import edu.mu.adopt.model.Pet;
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 
-// Adopt_Me\src\main\resources\pets.json
-// Adopt_Me\src\main\resources\exotic_animals.json
 
 /**
  * Class for loading and saving JSON files
  */
+/**
+ * @param <T>
+ */
 public class HandleJSON<T extends Pet> {
 	
+	private static final String PET_FILE = "src/main/resources/pets.json";
+	private static final String EXOTIC_FILE = "src/main/resources/exotic_animals.json";
+
+	/**
+	 * @return Pets in file.
+	 */
 	public Set<Pet> loadpets() {
-		return loadFromJson("pets.json", new TypeToken <Set<Pet>>() {}.getType());
+		return loadFromJson(PET_FILE, new TypeToken <Set<Pet>>() {}.getType());
 	}
 	
+	/**
+	 * @return Exotic pets in file.
+	 */
 	public Set<ExoticAnimal> loadexoticanimals() {
-		return loadFromJson("exotic_animals.json", new TypeToken <Set<ExoticAnimal>>() {}.getType());
+		return loadFromJson(EXOTIC_FILE, new TypeToken <Set<ExoticAnimal>>() {}.getType());
 	}
 	
-	private <T> Set<T> loadFromJson(String fileName, Type type) {
-		try(InputStream is = HandleJSON.class.getClassLoader().getResourceAsStream(fileName);
-				InputStreamReader reader = new InputStreamReader(is)) 
+	/**
+	 * @param <T>
+	 * @param filePath
+	 * @param type
+	 * @return Pets from Json files, which depends on the file path passed in.
+	 */
+	private <T> Set<T> loadFromJson(String filePath, Type type) {
+		try(FileReader reader = new FileReader(filePath))
 		{
 			return new Gson().fromJson(reader, type);
 		}
 		catch (Exception e) {
-			throw new RuntimeException("Error laoding file: " + fileName, e);
+			throw new RuntimeException("Error loading file: " + filePath, e);
 		}
 	}
 	
-	private void saveToJson(Set <T> set, String base) {
+	/**
+	 * @param set 
+	 * Pet list passed in, saved to a time-stamped Json file.
+	 */
+	public void saveToJson(Set <T> set) {
 		Gson gson = new Gson();
 		String json = gson.toJson(set);
-		String time = DateTimeFormatter.ofPattern("yyyyMMDD_HHMMSS_").format(LocalDateTime.now());
-		String filename = time + "_" + base + ".json";
+		String time = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss_").format(LocalDateTime.now());
+		String filename = "saved_" + time + "pets.json";
 		
 		try(FileWriter writer = new FileWriter(filename)) {
-			writer.write(json);
+			new Gson().toJson(set, writer);
 			System.out.println("Saved to file: " + filename);
 		}
 		catch (IOException e) {
-			System.err.println("Failed to save to JSON");
+			System.err.println("Failed to save to JSON: " + e.getMessage());
 		}
 	}
 	
+	/**
+	 * @param pets
+	 * Calls save method to save the set of passed in pets.
+	 */
 	public void savePetList(Set <T> pets) {
-		saveToJson(pets, "pets");
+		saveToJson(pets);
 	}
 }
