@@ -20,9 +20,9 @@ import edu.mu.adopt.utility.SortBySpecies;
 import edu.mu.adopt.view.AdoptionView;
 
 /**
- * Author: Brandom Gomes
- * @param <T>
+ * Author: Brandom Gomes.
  * Sets up the controller for the adoption center
+ * @param <T> generic upper bound for Pet object
  */
 public class AdoptionController <T extends Pet> {
 	
@@ -32,10 +32,10 @@ public class AdoptionController <T extends Pet> {
 	private Comparator<T> currentFilter;
 	
 	/**
-	 * @param shelter
 	 * Initializes controller 
+	 * @param shelter
 	 */
-	public AdoptionController(Shelter<T> shelter) {
+	public AdoptionController() {
 		this.shelter = new Shelter<T>();
 		this.view = new AdoptionView();
 		this.jsonHandler = new HandleJSON();
@@ -290,8 +290,8 @@ public class AdoptionController <T extends Pet> {
     }
 	
 	/**
-	 * @return sorted exotic animals list
 	 * Sorts exotic animals
+	 * @return sorted exotic animals list
 	 */
 	private List<T> getSortedImportablePets() {
 		// Get pets from shelter

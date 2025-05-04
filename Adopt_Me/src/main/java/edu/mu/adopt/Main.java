@@ -19,14 +19,13 @@ import javax.swing.SwingUtilities;
 public class Main {
 
 	/**
-	 * @param args
-	 * Creates instance of the shelter for pets
+	 * Creates instance of the shelter for pets.
 	 * Creates new controller
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
-			Shelter<Pet> shelter = new Shelter<>();
-			new AdoptionController<>(shelter);
+			new AdoptionController<>();
 		});
 		
 	}
