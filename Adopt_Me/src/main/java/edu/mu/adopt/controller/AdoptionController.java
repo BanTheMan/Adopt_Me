@@ -43,7 +43,6 @@ public class AdoptionController <T extends Pet> {
 	private void setupActionListeners() {
         view.addActionListeners(
             e -> addButtonPressed(),           // Add button
-            e -> importButtonPressed(),
             e -> adoptPetButtonPressed(),         // Adopt button
             e -> removePetButtonPressed() ,        // Remove button
             e -> viewDetailsButtonPressed(),      // View Details button
@@ -56,13 +55,9 @@ public class AdoptionController <T extends Pet> {
 		// Get importable pets in table form
 		String[][] importablePets = convertImportableToTableData();
 		
-		// TODO: display importable set table
-		// TODO: change bottom panel to be import button
-	}
-	
-	private void importButtonPressed() {
+		// Display add importable pet dialog
 		// Get selected pet to be imported
-		int selectedIndex = view.getSelectedPetIndex();
+		int selectedIndex = view.addImportableDialog(importablePets);
 		
 		if (selectedIndex >= 0) {
 			// Get selected pet object
@@ -106,7 +101,7 @@ public class AdoptionController <T extends Pet> {
 					// TODO: pet is already adopted message
 				} else {
 					selectedPet.setAdopted(true);
-					// TODO: adopted pet message. Move to home? 
+					// TODO: adopted pet message. 
 					updateView();
 				}
 			}
@@ -126,12 +121,16 @@ public class AdoptionController <T extends Pet> {
 				T selectedPet = petsInStockList.get(selectedIndex);
 				
 				// Remove from stock
-				boolean removed = shelter.removePet(selectedPet);
-				
-				if (removed) {
-					// TODO: success message
+				if (selectedPet.isAdopted()) {
+					// TODO: cannot remove message
 				} else {
-					// TODO: failure message
+					boolean removed = shelter.removePet(selectedPet);
+					
+					if (removed) {
+						// TODO: success message
+					} else {
+						// TODO: failure message
+					}
 				}
 				updateView();
 			}
@@ -158,7 +157,7 @@ public class AdoptionController <T extends Pet> {
 					selectedPet.isAdopted() ? "Adopted" : "Available"
 				};
 				
-				// TODO: Show details
+				view.petDetailsDialog(petDetails);
 			}
 		} else {
 			// TODO: no pet selected message
@@ -228,7 +227,6 @@ public class AdoptionController <T extends Pet> {
             tableData[i][0] = pet.getName();
             tableData[i][1] = pet.getSpecies();
             tableData[i][2] = String.valueOf(pet.getAge());
-            // TODO: Display or move to home?
             tableData[i][3] = pet.isAdopted() ? "Adopted" : "Available";
         }
         
@@ -262,7 +260,6 @@ public class AdoptionController <T extends Pet> {
             tableData[i][0] = pet.getName();
             tableData[i][1] = pet.getSpecies();
             tableData[i][2] = String.valueOf(pet.getAge());
-            // TODO: Display or move to home?
             tableData[i][3] = pet.isAdopted() ? "Adopted" : "Available";
         }
         
