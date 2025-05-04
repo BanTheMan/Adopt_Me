@@ -14,6 +14,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 
+// Adopt_Me\src\main\resources\pets.json
+// Adopt_Me\src\main\resources\exotic_animals.json
+
 /**
  * Class for loading and saving JSON files
  */
