@@ -16,13 +16,13 @@ public abstract class Pet implements Comparable<Pet> {
     private boolean adopted;
     
     /**
+     * Initialize pet 
      * @param id
      * @param name
      * @param type
      * @param species
      * @param age
      * @param adopted
-     * Initialize pet 
      */
     public Pet(String id,
     		String name,
@@ -46,8 +46,8 @@ public abstract class Pet implements Comparable<Pet> {
 	}
 
 	/**
-	 * @param id
 	 * Set pet ID
+	 * @param id
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -61,8 +61,8 @@ public abstract class Pet implements Comparable<Pet> {
 	}
 
 	/**
-	 * @param name
 	 * Set pet name
+	 * @param name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -76,8 +76,8 @@ public abstract class Pet implements Comparable<Pet> {
 	}
 
 	/**
-	 * @param type
 	 * Set pet type
+	 * @param type
 	 */
 	public void setType(String type) {
 		this.type = type;
@@ -91,8 +91,8 @@ public abstract class Pet implements Comparable<Pet> {
 	}
 
 	/**
-	 * @param species
 	 * Set pet species
+	 * @param species
 	 */
 	public void setSpecies(String species) {
 		this.species = species;
@@ -106,32 +106,32 @@ public abstract class Pet implements Comparable<Pet> {
 	}
 
 	/**
-	 * @param age
 	 * Set pet age
+	 * @param age
 	 */
 	public void setAge(Integer age) {
 		this.age = age;
 	}
 
 	/**
-	 * @return adopted
 	 * returns adopted status
+	 * @return adopted
 	 */
 	public boolean isAdopted() {
 		return adopted;
 	}
 
 	/**
-	 * @param adopted
 	 * Sets pet to adopted
+	 * @param adopted
 	 */
 	public void setAdopted(boolean adopted) {
 		this.adopted = adopted;
 	}
 	
 	/**
-	 * @return Pet details
 	 * Returns a string containing all the details of the pet
+	 * @return Pet details
 	 */
 	public String viewDetails() {
 		return "Pet [id=" + id + ", name=" + name + ", type=" + type + ", species=" + species + ", age=" + age
@@ -139,7 +139,7 @@ public abstract class Pet implements Comparable<Pet> {
 	}
 	
 	/**
-	 *Compare name of pet
+	 * Compare name of pet
 	 */
 	@Override
 	public int compareTo(Pet pet) {

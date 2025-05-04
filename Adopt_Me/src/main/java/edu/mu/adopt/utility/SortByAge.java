@@ -6,13 +6,14 @@ import edu.mu.adopt.model.Pet;
 
 /**
  * Author: Ivan Rhodes
- * @param <T>
  * Class for sorting by age.
+ * @param <T>
  */
 public class SortByAge<T extends Pet> implements Comparator<T>{
 
 	/**
-	 * @param pets to be compared/sorted by age.
+	 * @param o1 Pet being compared/sorted by age.
+	 * @param o2 Pet being compared to
 	 */
 	@Override
 	public int compare(Pet o1, Pet o2) {

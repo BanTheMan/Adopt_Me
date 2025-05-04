@@ -1,10 +1,8 @@
 package edu.mu.adopt.model;
 
 /**
- * MVC Model
- * Author: Brandon Gomes
- */
-/**
+ * MVC Model.
+ * Author: Brandon Gomes.
  * Class for exotic animals
  */
 public class ExoticAnimal {
@@ -16,12 +14,12 @@ public class ExoticAnimal {
     private Integer yearsOld;
     
     /**
-     * @param uniqueId
-     * @param animalName
-     * @param category
-     * @param subSpecies
-     * @param yearsOld
-     * Initialize a animal
+     * Initialize an animal
+     * @param uniqueId = id
+     * @param animalName = name
+     * @param category = type of animal
+     * @param subSpecies = species of animal
+     * @param yearsOld = age
      */
     public ExoticAnimal(String uniqueId,
     				String animalName,
@@ -36,6 +34,7 @@ public class ExoticAnimal {
 	}
 
 	/**
+	 * retrieve animal ID
 	 * @return animal ID
 	 */
 	public String getUniqueId() {
@@ -43,14 +42,15 @@ public class ExoticAnimal {
 	}
 
 	/**
-	 * @param uniqueId
 	 * Set ID for exotic animal
+	 * @param uniqueId = id
 	 */
 	public void setUniqueId(String uniqueId) {
 		this.uniqueId = uniqueId;
 	}
 
 	/**
+	 * Retrieve animal name
 	 * @return animals name
 	 */
 	public String getAnimalName() {
@@ -58,14 +58,15 @@ public class ExoticAnimal {
 	}
 
 	/**
-	 * @param animalName
 	 * Set animals name
+	 * @param animalName = name
 	 */
 	public void setAnimalName(String animalName) {
 		this.animalName = animalName;
 	}
 
 	/**
+	 * Retrieve animal's category
 	 * @return animal category
 	 */
 	public String getCategory() {
@@ -73,14 +74,15 @@ public class ExoticAnimal {
 	}
 
 	/**
-	 * @param category
-	 * Set animals category
+	 * Set animal's category
+	 * @param category = type of animal
 	 */
 	public void setCategory(String category) {
 		this.category = category;
 	}
 
 	/**
+	 * Retrieve animal sub-species
 	 * @return animals sub-species
 	 */
 	public String getSubSpecies() {
@@ -88,14 +90,15 @@ public class ExoticAnimal {
 	}
 
 	/**
-	 * @param subSpecies
 	 * Sets sub-species
+	 * @param subSpecies = species of animal
 	 */
 	public void setSubSpecies(String subSpecies) {
 		this.subSpecies = subSpecies;
 	}
 
 	/**
+	 * Retrieve age of animal
 	 * @return age of animal
 	 */
 	public Integer getYearsOld() {
@@ -103,8 +106,8 @@ public class ExoticAnimal {
 	}
 
 	/**
-	 * @param yearsOld
 	 * Sets the age of the animal.
+	 * @param yearsOld = age
 	 */
 	public void setYearsOld(Integer yearsOld) {
 		this.yearsOld = yearsOld;

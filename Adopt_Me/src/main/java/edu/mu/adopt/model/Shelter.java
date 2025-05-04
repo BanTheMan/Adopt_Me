@@ -5,7 +5,7 @@ import java.util.Set;
 
 
 /**
- * MVC Container Model
+ * MVC Container Model.
  * Author: Unsure, put ye name
  */
 public class Shelter<T extends Pet> {
@@ -29,8 +29,8 @@ public class Shelter<T extends Pet> {
 	}
 
 	/**
-	 * @param adoptablePets
 	 * Set pets in stock to adoptable
+	 * @param adoptablePets
 	 */
 	public void setPetsInStock(Set<T> adoptablePets) {
 		this.inStock = adoptablePets;
@@ -44,8 +44,8 @@ public class Shelter<T extends Pet> {
 	}
 
 	/**
-	 * @param unadoptablePets
 	 * Sets Importable pets with unadoptable pets
+	 * @param unadoptablePets
 	 */
 	public void setImportablePets(Set<T> unadoptablePets) {
 		this.importable = unadoptablePets;
@@ -61,16 +61,16 @@ public class Shelter<T extends Pet> {
 //	}
 	
 	/**
-	 * @param pet
 	 * Adds passed in pet to stock
+	 * @param pet
 	 */
 	public void addPetToStock(T pet) {
 		this.inStock.add(pet);
 	}
 	
 	/**
-	 * @param badPet
 	 * Removes pet from stock
+	 * @param badPet
 	 */
 	public void removePetFromStock(T badPet) {
 		for (T pet : inStock) {
@@ -90,16 +90,16 @@ public class Shelter<T extends Pet> {
 //	}
 	
 	/**
-	 * @param pet
 	 * adds passed in pet to import set
+	 * @param pet
 	 */
 	public void addImportablePet(T pet) {
 		this.importable.add(pet);
 	}
 	
 	/**
-	 * @param pet
 	 * Removes pet from importable set
+	 * @param pet
 	 */
 	public void removeImportablePet(T pet) {
 		for (T terriblePet : importable) {
@@ -110,9 +110,9 @@ public class Shelter<T extends Pet> {
 	}
 	
 	/**
+	 * Checks if pet is in stock or not
 	 * @param pet
 	 * @return true or false 
-	 * Checks if pet is in stock or not
 	 */
 	public boolean isInStock(T pet) {
 		if (inStock.contains(pet)) {
@@ -122,9 +122,9 @@ public class Shelter<T extends Pet> {
 	}
 	
 	/**
-	 * @param pet
-	 * @return true or false
 	 * Checks if the pet is importable or not
+	 * @param pet object being checked
+	 * @return true or false
 	 */
 	public boolean isImportable(T pet) {
 		if (importable.contains(pet)) {
@@ -149,9 +149,9 @@ public class Shelter<T extends Pet> {
 	}
 	
 	/**
+	 * removes pet from stock, adds them to the importable set
 	 * @param badPet
 	 * @return true or false
-	 * removes pet from stock, adds them to the importable set
 	 */
 	public boolean removePet(T badPet) {
 		if (isInStock(badPet)) {

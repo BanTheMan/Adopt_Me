@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 /**
- * Author: Nate Spencer
+ * Author: Nate Spencer.
  * GUI
  */
 public class AdoptionView {
@@ -71,13 +71,13 @@ public class AdoptionView {
 	}
 	
 	/**
+	 * Buttons for controller
 	 * @param addListener
 	 * @param adoptListener
 	 * @param removeListener
 	 * @param viewDetailsListener
 	 * @param saveListener
 	 * @param sortListener
-	 * Buttons for controller
 	 */
 	public void addActionListeners(
             ActionListener addListener,
@@ -103,8 +103,8 @@ public class AdoptionView {
 	}
 	
 	/**
-	 * @param data
 	 * Update table with new data
+	 * @param data
 	 * 
 	 */
 	public void updatePetTable(String[][] data) {
@@ -129,9 +129,9 @@ public class AdoptionView {
 	}
 	
 	/**
+	 * Shows table of importable pets for the user to select from
 	 * @param importablePets
 	 * @return selected row or -1
-	 * Shows table of importable pets for the user to select from
 	 */
 	public int addImportableDialog(String[][] importablePets) {
 		String[] columnNames = {"Name", "Species", "Age"};
@@ -156,8 +156,8 @@ public class AdoptionView {
 	}
 	
 	/**
-	 * @param petDetails
 	 * Dialog for pet details
+	 * @param petDetails
 	 */
 	public void petDetailsDialog(String[] petDetails) {
 		String petMessage = String.format(
@@ -168,10 +168,10 @@ public class AdoptionView {
 	
 	
 	/**
+	 * Shows message
 	 * @param message
 	 * @param title
 	 * @param messageType
-	 * Shows message
 	 */
 	public void showMessage(String message, String title, int messageType) {
         JOptionPane.showMessageDialog(frame, message, title, messageType);

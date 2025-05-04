@@ -59,8 +59,8 @@ public class HandleJSON<T extends Pet> {
 	}
 	
 	/**
-	 * @param set 
 	 * Pet list passed in, saved to a time-stamped Json file.
+	 * @param set 
 	 */
 	public void saveToJson(Set <T> set) {
 		Gson gson = new Gson();
@@ -78,8 +78,8 @@ public class HandleJSON<T extends Pet> {
 	}
 	
 	/**
-	 * @param pets
 	 * Calls save method to save the set of passed in pets.
+	 * @param pets
 	 */
 	public void savePetList(Set <T> pets) {
 		saveToJson(pets);

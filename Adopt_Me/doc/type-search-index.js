@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"edu.mu.adopt.view","l":"AdoptionView"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();

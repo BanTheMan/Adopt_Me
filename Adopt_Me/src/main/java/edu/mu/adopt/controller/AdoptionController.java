@@ -33,7 +33,6 @@ public class AdoptionController <T extends Pet> {
 	
 	/**
 	 * Initializes controller 
-	 * @param shelter
 	 */
 	public AdoptionController() {
 		this.shelter = new Shelter<T>();
@@ -97,7 +96,7 @@ public class AdoptionController <T extends Pet> {
 	}
 	
 	/**
-	 * @param exoticAnimals
+	 * @param exoticAnimals: Set of ExoticAnimal objects to be adapted with wrapper class.
 	 * @return imported exotic animals.
 	 */
 	private Set<T> importExoticPets(Set<ExoticAnimal> exoticAnimals) {
@@ -249,8 +248,8 @@ public class AdoptionController <T extends Pet> {
 	}
 	
 	/**
-	 * @return sorted pet list
 	 * Sorts pets based on the comparator
+	 * @return sorted pet list
 	 */
 	private List<T> getSortedInStockPets() {
 		// Get pets from shelter
@@ -269,8 +268,8 @@ public class AdoptionController <T extends Pet> {
 	}
 	
 	/**
-	 * @return converted pet list
 	 * Converts pet list to table.
+	 * @return converted pet list
 	 */
 	private String[][] convertStockToTableData() {
 		List<T> petsList = getSortedInStockPets();
@@ -310,8 +309,8 @@ public class AdoptionController <T extends Pet> {
 	}
 	
 	/**
-	 * @return table of data
 	 * Converts exotic animals to a table
+	 * @return table of data
 	 */
 	private String[][] convertImportableToTableData() {
         List<T> exoAniList = getSortedImportablePets();
@@ -330,6 +329,9 @@ public class AdoptionController <T extends Pet> {
         return tableData;
     }
 	
+	/**
+	 * Redisplay inStock set from shelter in view
+	 */
 	private void updateView() {
 		String[][] tableData = convertStockToTableData();
 		view.updatePetTable(tableData);
