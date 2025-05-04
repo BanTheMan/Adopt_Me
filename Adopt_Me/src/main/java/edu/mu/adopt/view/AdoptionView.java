@@ -102,12 +102,34 @@ public class AdoptionView {
 	}
 	
 	public int addImportableDialog(String[][] importablePets) {
-		return 0;
+		String[] columnNames = {"Name", "Species", "Age"};
+		
+		JTable importedTable = new JTable(importablePets, columnNames);
+		JScrollPane scrollPane = new JScrollPane(importedTable);
+		
+		int result;
+		result = JOptionPane.showConfirmDialog(
+				frame, scrollPane, "Select Pet to Import", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);	
+		
+		if (result == JOptionPane.OK_OPTION)
+		{
+			return importedTable.getSelectedRow();
+		}
+		
+		else
+		{
+			return -1;
+		}
+	
 	}
 	
 	public void petDetailsDialog(String[] petDetails) {
+		String petMessage = String.format(
+				"Name: %s\nSpecies: %s\nAge: %s", petDetails[0], petDetails[1], petDetails[2]);
 		
+		JOptionPane.showMessageDialog(frame, petMessage, "Pet Details", JOptionPane.INFORMATION_MESSAGE);
 	}
+	
 	
 	public void showMessage(String message, String title, int messageType) {
         JOptionPane.showMessageDialog(frame, message, title, messageType);
