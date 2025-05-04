@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 import edu.mu.adopt.model.ExoticAnimal;
 import edu.mu.adopt.model.ExoticAnimalAdapter;
 import edu.mu.adopt.model.Home;
@@ -65,17 +67,21 @@ public class AdoptionController <T extends Pet> {
 			// Check in range
 			if (selectedIndex < importablePetsList.size()) {
 				// Add pet
-				boolean added = shelter.addPet(importablePetsList.get(selectedIndex));
+				T selectedPet = importablePetsList.get(selectedIndex);
+				boolean added = shelter.addPet(selectedPet);
 				
 				if (added) {
-					// TODO: success message
+					// Success message
+					view.showMessage(selectedPet.getName() + " was successfully added to shelter!", "Import Successful", JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					// TODO: failure message
+					// Failure message
+					view.showMessage(selectedPet.getName() + " could not be added to shelter.", "Import Unsuccessful", JOptionPane.ERROR_MESSAGE);
 				}
 				updateView();
 			}
 		} else {
-			// TODO: pet not selected message
+			// Pet not selected message
+			view.showMessage("Please select a pet to add", "Selection Required", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	
@@ -98,15 +104,18 @@ public class AdoptionController <T extends Pet> {
 				
 				// Check if adopted
 				if (selectedPet.isAdopted()) {
-					// TODO: pet is already adopted message
+					// Pet is already adopted message
+					view.showMessage(selectedPet.getName() + " is already adopted", "Can't Adopt", JOptionPane.WARNING_MESSAGE);
 				} else {
 					selectedPet.setAdopted(true);
-					// TODO: adopted pet message. 
+					// Adopted pet message. 
+					view.showMessage(selectedPet.getName() + " has been adopted!", "Pet Adopted", JOptionPane.INFORMATION_MESSAGE);
 					updateView();
 				}
 			}
 		} else {
-			// TODO: pet not selected message
+			// Pet not selected message
+			view.showMessage("Please select a pet to add", "Selection Required", JOptionPane.WARNING_MESSAGE);
 		}
 		
 	}
@@ -122,20 +131,24 @@ public class AdoptionController <T extends Pet> {
 				
 				// Remove from stock
 				if (selectedPet.isAdopted()) {
-					// TODO: cannot remove message
+					// Cannot remove message
+					view.showMessage(selectedPet.getName() + " cannot be removed because they awaiting a home..", "Removal Failure", JOptionPane.WARNING_MESSAGE);
 				} else {
 					boolean removed = shelter.removePet(selectedPet);
 					
 					if (removed) {
-						// TODO: success message
+						// Success message
+						view.showMessage(selectedPet.getName() + " has been removed from the shelter :(", "Pet Removed", JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						// TODO: failure message
+						// Failure message
+						view.showMessage(selectedPet.getName() + " could not be removed.", "Removal Failure", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				updateView();
 			}
 		} else {
-			// TODO: no pet selected message
+			// Pet not selected message
+			view.showMessage("Please select a pet to add", "Selection Required", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	
@@ -160,7 +173,8 @@ public class AdoptionController <T extends Pet> {
 				view.petDetailsDialog(petDetails);
 			}
 		} else {
-			// TODO: no pet selected message
+			// Pet not selected message
+			view.showMessage("Please select a pet to add", "Selection Required", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	
@@ -172,7 +186,8 @@ public class AdoptionController <T extends Pet> {
 		}
 		jsonHandler.savePetList(adoptedPets);
 		
-		// TODO: file saved message
+		// File saved message
+		view.showMessage("Adopted pets have been saved!", "Saved!", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	private void sortSelectionPressed() {
