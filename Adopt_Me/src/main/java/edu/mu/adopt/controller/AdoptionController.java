@@ -19,6 +19,11 @@ import edu.mu.adopt.utility.SortByAge;
 import edu.mu.adopt.utility.SortBySpecies;
 import edu.mu.adopt.view.AdoptionView;
 
+/**
+ * Author: Brandom Gomes
+ * @param <T>
+ * Sets up the controller for the adoption center
+ */
 public class AdoptionController <T extends Pet> {
 	
 	private Shelter<T> shelter;
@@ -26,6 +31,10 @@ public class AdoptionController <T extends Pet> {
 	private HandleJSON jsonHandler;
 	private Comparator<T> currentFilter;
 	
+	/**
+	 * @param shelter
+	 * Initializes controller 
+	 */
 	public AdoptionController(Shelter<T> shelter) {
 		this.shelter = new Shelter<T>();
 		this.view = new AdoptionView();
@@ -38,6 +47,9 @@ public class AdoptionController <T extends Pet> {
 		updateView();
 	}
 	
+	/**
+	 * Set-up buttons for use in the adoption center 
+	 */
 	private void setupActionListeners() {
         view.addActionListeners(
             e -> addButtonPressed(),           // Add button
@@ -49,6 +61,9 @@ public class AdoptionController <T extends Pet> {
         );
     }
 	
+	/**
+	 * Logic for adding.
+	 */
 	private void addButtonPressed() {
 		// Get importable pets in table form
 		String[][] importablePets = convertImportableToTableData();
@@ -81,6 +96,10 @@ public class AdoptionController <T extends Pet> {
 		}
 	}
 	
+	/**
+	 * @param exoticAnimals
+	 * @return imported exotic animals.
+	 */
 	private Set<T> importExoticPets(Set<ExoticAnimal> exoticAnimals) {
 		Set<T> tamedExoAnis = new HashSet<T>();
 		for (ExoticAnimal exoAni : exoticAnimals) {
@@ -89,6 +108,9 @@ public class AdoptionController <T extends Pet> {
 		return tamedExoAnis;
 	}
 	
+	/**
+	 * Sets chosen pet to adopted, unless not possible. 
+	 */
 	private void adoptPetButtonPressed() {
 		// Get selected pet
 		int selectedIndex = view.getSelectedPetIndex();
@@ -116,6 +138,9 @@ public class AdoptionController <T extends Pet> {
 		
 	}
 	
+	/**
+	 * Removes pet from the shelter, if adopted.
+	 */
 	private void removePetButtonPressed() {
 		// Get selected pet
 		int selectedIndex = view.getSelectedPetIndex();
@@ -148,6 +173,9 @@ public class AdoptionController <T extends Pet> {
 		}
 	}
 	
+	/**
+	 * Shows details of selected pet.
+	 */
 	private void viewDetailsButtonPressed() {
 		// Get selected pet
 		int selectedIndex = view.getSelectedPetIndex();
@@ -174,6 +202,9 @@ public class AdoptionController <T extends Pet> {
 		}
 	}
 	
+	/**
+	 * Save adopted pets to Json file when the save button is pressed
+	 */
 	private void saveButtonPressed() {
 		// Get adopted pets
 		Set<T> adoptedPets = new HashSet<T>();
@@ -186,6 +217,9 @@ public class AdoptionController <T extends Pet> {
 		view.showMessage("Adopted pets have been saved!", "Saved!", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
+	/**
+	 * Updates sorting filter
+	 */
 	private void sortSelectionPressed() {
 		String sortOptionSelected = view.getSelectedSortOption();
 		
@@ -206,11 +240,18 @@ public class AdoptionController <T extends Pet> {
 		updateView();
 	}
 	
+	/**
+	 * Loads normal pets in the center, as well as the exotic pets into the import list
+	 */
 	private void loadPetsFromFiles() {
 		shelter.setPetsInStock((Set<T>) jsonHandler.loadpets());
 		shelter.setImportablePets(importExoticPets(jsonHandler.loadexoticanimals()));
 	}
 	
+	/**
+	 * @return sorted pet list
+	 * Sorts pets based on the comparator
+	 */
 	private List<T> getSortedInStockPets() {
 		// Get pets from shelter
         Set<T> petsInStock = shelter.getPetsInStock();
@@ -227,6 +268,10 @@ public class AdoptionController <T extends Pet> {
         return petsList;
 	}
 	
+	/**
+	 * @return converted pet list
+	 * Converts pet list to table.
+	 */
 	private String[][] convertStockToTableData() {
 		List<T> petsList = getSortedInStockPets();
         
@@ -244,6 +289,10 @@ public class AdoptionController <T extends Pet> {
         return tableData;
     }
 	
+	/**
+	 * @return sorted exotic animals list
+	 * Sorts exotic animals
+	 */
 	private List<T> getSortedImportablePets() {
 		// Get pets from shelter
         Set<T> importableAnimals = shelter.getPetsInStock();
@@ -260,6 +309,10 @@ public class AdoptionController <T extends Pet> {
         return exoAniList;
 	}
 	
+	/**
+	 * @return table of data
+	 * Converts exotic animals to a table
+	 */
 	private String[][] convertImportableToTableData() {
         List<T> exoAniList = getSortedImportablePets();
         

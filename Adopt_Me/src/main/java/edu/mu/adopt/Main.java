@@ -1,5 +1,6 @@
 package edu.mu.adopt;
 
+import edu.mu.adopt.controller.AdoptionController;
 import edu.mu.adopt.model.ExoticAnimal;
 import edu.mu.adopt.view.AdoptionView;
 import edu.mu.adopt.model.ExoticAnimalAdapter;
@@ -9,28 +10,23 @@ import edu.mu.adopt.utility.HandleJSON;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
+/**
+ * Launch program
+ */
 public class Main {
 
+	/**
+	 * @param args
+	 * Creates instance of the shelter for pets
+	 * Creates new controller
+	 */
 	public static void main(String[] args) {
-		
-		AdoptionView.launch();
-		
-		List<Pet> pets = HandleJSON.loadpet();
-		List<ExoticAnimal> epets = HandleJSON.loadexoticanimal();
-		
-		List<Pet> allpets = new ArrayList<>(pets);
-		
-		for(ExoticAnimal exotic: epets) 
-		{
-			allpets.add(new ExoticAnimalAdapter(exotic));
-		}
-		
-		Shelter<Pet> shelter = new Shelter<>();
-		for(Pet pet: allpets) 
-		{
-			shelter.addPet(pet);
-		}
-		
+		SwingUtilities.invokeLater(() -> {
+			Shelter<Pet> shelter = new Shelter<>();
+			new AdoptionController<>(shelter);
+		});
 		
 	}
 
