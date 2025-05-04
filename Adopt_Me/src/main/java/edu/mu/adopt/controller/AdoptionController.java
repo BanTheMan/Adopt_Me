@@ -28,12 +28,11 @@ public class AdoptionController <T extends Pet> {
 	private HandleJSON jsonHandler;
 	private Comparator<T> currentFilter;
 	
-	public AdoptionController(Shelter<T> shelter, AdoptionView view) {
-		this.shelter = shelter;
-		this.view = view;
+	public AdoptionController(Shelter<T> shelter) {
+		this.shelter = new Shelter<T>();
+		this.view = new AdoptionView();
 		this.home = new Home<Pet>();
 		this.jsonHandler = new HandleJSON();
-		
 		
 		setupActionListeners();
 		
