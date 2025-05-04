@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 
 import edu.mu.adopt.model.ExoticAnimal;
 import edu.mu.adopt.model.ExoticAnimalAdapter;
-import edu.mu.adopt.model.Home;
 import edu.mu.adopt.model.Pet;
 import edu.mu.adopt.model.Shelter;
 import edu.mu.adopt.utility.HandleJSON;
@@ -23,7 +22,6 @@ import edu.mu.adopt.view.AdoptionView;
 public class AdoptionController <T extends Pet> {
 	
 	private Shelter<T> shelter;
-	private Home home;
 	private AdoptionView view;
 	private HandleJSON jsonHandler;
 	private Comparator<T> currentFilter;
@@ -31,7 +29,6 @@ public class AdoptionController <T extends Pet> {
 	public AdoptionController(Shelter<T> shelter) {
 		this.shelter = new Shelter<T>();
 		this.view = new AdoptionView();
-		this.home = new Home<Pet>();
 		this.jsonHandler = new HandleJSON();
 		
 		setupActionListeners();
