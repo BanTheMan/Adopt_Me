@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 /**
+ * Author: Ivan Rhodes
  * Launch program
  */
 public class Main {

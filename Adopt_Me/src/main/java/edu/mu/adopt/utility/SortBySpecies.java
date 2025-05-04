@@ -5,6 +5,7 @@ import java.util.Comparator;
 import edu.mu.adopt.model.Pet;
 
 /**
+ * Author: Ivan Rhodes
  * @param <T>
  */
 public class SortBySpecies<T extends Pet> implements Comparator<T> {

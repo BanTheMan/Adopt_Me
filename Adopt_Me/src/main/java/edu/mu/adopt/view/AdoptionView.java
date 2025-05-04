@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 /**
+ * Author: Nate Spencer
  * GUI
  */
 public class AdoptionView {
@@ -19,6 +20,9 @@ public class AdoptionView {
 	
 	
 	
+	/**
+	 * Constructor for GUI 
+	 */
 	public AdoptionView() {
 		frame = new JFrame("Adopt Me - Pet Adoption Center");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,6 +70,15 @@ public class AdoptionView {
 		
 	}
 	
+	/**
+	 * @param addListener
+	 * @param adoptListener
+	 * @param removeListener
+	 * @param viewDetailsListener
+	 * @param saveListener
+	 * @param sortListener
+	 * Buttons for controller
+	 */
 	public void addActionListeners(
             ActionListener addListener,
             ActionListener adoptListener,
@@ -82,10 +95,18 @@ public class AdoptionView {
         sortComboBox.addActionListener(sortListener);
     }
 	
+	/**
+	 * Start the GUI
+	 */
 	public static void launch() {
 		SwingUtilities.invokeLater(AdoptionView::new);
 	}
 	
+	/**
+	 * @param data
+	 * Update table with new data
+	 * 
+	 */
 	public void updatePetTable(String[][] data) {
         tableModel.setRowCount(0); // Clear existing data
         for (String[] row : data) {
@@ -93,14 +114,25 @@ public class AdoptionView {
         }
     }
 	
+	/**
+	 * @return selected row
+	 */
 	public int getSelectedPetIndex() {
         return petTable.getSelectedRow();
     }
 	
+	/**
+	 * @return sort option selected
+	 */
 	public String getSelectedSortOption() {
 		return (String) sortComboBox.getSelectedItem();
 	}
 	
+	/**
+	 * @param importablePets
+	 * @return selected row or -1
+	 * Shows table of importable pets for the user to select from
+	 */
 	public int addImportableDialog(String[][] importablePets) {
 		String[] columnNames = {"Name", "Species", "Age"};
 		
@@ -123,6 +155,10 @@ public class AdoptionView {
 	
 	}
 	
+	/**
+	 * @param petDetails
+	 * Dialog for pet details
+	 */
 	public void petDetailsDialog(String[] petDetails) {
 		String petMessage = String.format(
 				"Name: %s\nSpecies: %s\nAge: %s", petDetails[0], petDetails[1], petDetails[2]);
@@ -131,6 +167,12 @@ public class AdoptionView {
 	}
 	
 	
+	/**
+	 * @param message
+	 * @param title
+	 * @param messageType
+	 * Shows message
+	 */
 	public void showMessage(String message, String title, int messageType) {
         JOptionPane.showMessageDialog(frame, message, title, messageType);
     }

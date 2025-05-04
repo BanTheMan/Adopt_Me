@@ -17,6 +17,7 @@ import java.lang.reflect.Type;
 
 
 /**
+ * Author: Ivan Rhodes
  * Class for loading and saving JSON files
  */
 /**
