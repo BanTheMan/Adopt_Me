@@ -66,7 +66,7 @@ public class HandleJSON<T extends Pet> {
 		Gson gson = new Gson();
 		String json = gson.toJson(set);
 		String time = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss_").format(LocalDateTime.now());
-		String filename = "saved_" + time + "pets.json";
+		String filename = time + "pets.json";
 		
 		try(FileWriter writer = new FileWriter(filename)) {
 			new Gson().toJson(set, writer);

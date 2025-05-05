@@ -3,7 +3,7 @@ package edu.mu.adopt.model;
 /**
  * Adapter to wrap the ExoticAnimal class for compatibility with Pet in Controller
  */
-public class ExoticAnimalAdapter<T extends Pet> extends Pet {
+public class ExoticAnimalAdapter extends Pet {
 	
 	private ExoticAnimal exoticAnimal;
 
@@ -11,14 +11,14 @@ public class ExoticAnimalAdapter<T extends Pet> extends Pet {
 	 * @param exoticAnimal
 	 * Adapt exotic animal to pet 
 	 */
-	public ExoticAnimalAdapter(ExoticAnimal exoticAnimal) {
-		super(exoticAnimal.getUniqueId(),
-				exoticAnimal.getAnimalName(),
-				exoticAnimal.getCategory(),
-				exoticAnimal.getSubSpecies(),
-				exoticAnimal.getYearsOld(),
+	public ExoticAnimalAdapter(ExoticAnimal exoAni) {
+		super(exoAni.getUniqueId(),
+				exoAni.getAnimalName(),
+				exoAni.getCategory(),
+				exoAni.getSubSpecies(),
+				exoAni.getYearsOld(),
 				false);
-		this.exoticAnimal = exoticAnimal;
+		this.exoticAnimal = exoAni;
 	}
 	
 	/**
@@ -27,7 +27,10 @@ public class ExoticAnimalAdapter<T extends Pet> extends Pet {
 	@Override
 		public void setId(String id) {
 			super.setId(id);
-			this.exoticAnimal.setUniqueId(id);
+			if (this.exoticAnimal != null) {
+				this.exoticAnimal.setUniqueId(id);
+			}
+
 		}
 	
 	/**
@@ -35,7 +38,7 @@ public class ExoticAnimalAdapter<T extends Pet> extends Pet {
 	 */
 	@Override
 	public String getId() {
-		return this.exoticAnimal.getUniqueId();
+		return this.exoticAnimal != null ? this.exoticAnimal.getUniqueId() : super.getId();
 	}
 	
 	/**
@@ -44,7 +47,9 @@ public class ExoticAnimalAdapter<T extends Pet> extends Pet {
 	@Override
 		public void setName(String name) {
 			super.setName(name);
-			this.exoticAnimal.setAnimalName(name);
+			if (this.exoticAnimal != null) {
+				this.exoticAnimal.setAnimalName(name);
+			}
 		}
 	
 	/**
@@ -52,7 +57,7 @@ public class ExoticAnimalAdapter<T extends Pet> extends Pet {
 	 */
 	@Override
 	public String getName() {
-		return this.exoticAnimal.getAnimalName();
+		return this.exoticAnimal != null ? this.exoticAnimal.getAnimalName() : super.getName();
 	}
 	
 	/**
@@ -61,7 +66,9 @@ public class ExoticAnimalAdapter<T extends Pet> extends Pet {
 	@Override
 		public void setType(String type) {
 			super.setType(type);
-			this.exoticAnimal.setCategory(type);
+			if (this.exoticAnimal != null) {
+				this.exoticAnimal.setCategory(type);
+			}
 		}
 	
 	/**
@@ -69,7 +76,7 @@ public class ExoticAnimalAdapter<T extends Pet> extends Pet {
 	 */
 	@Override
 	public String getType() {
-		return this.exoticAnimal.getCategory();
+		return this.exoticAnimal != null ? this.exoticAnimal.getCategory() : super.getType();
 	}
 	
 	/**
@@ -78,7 +85,9 @@ public class ExoticAnimalAdapter<T extends Pet> extends Pet {
 	@Override
 		public void setSpecies(String species) {
 			super.setSpecies(species);
-			this.exoticAnimal.setSubSpecies(species);
+			if (this.exoticAnimal != null) {
+				this.exoticAnimal.setSubSpecies(species);
+			}
 		}
 	
 	/**
@@ -86,7 +95,7 @@ public class ExoticAnimalAdapter<T extends Pet> extends Pet {
 	 */
 	@Override
 	public String getSpecies() {
-		return this.exoticAnimal.getSubSpecies();
+		return this.exoticAnimal != null ? this.exoticAnimal.getSubSpecies() : super.getSpecies();
 	}
 	
 	/**
@@ -95,7 +104,9 @@ public class ExoticAnimalAdapter<T extends Pet> extends Pet {
 	@Override
 		public void setAge(Integer age) {
 			super.setAge(age);
-			this.exoticAnimal.setYearsOld(age);
+			if (this.exoticAnimal != null) {
+				this.exoticAnimal.setYearsOld(age);
+			}
 		}
 	
 	/**
@@ -103,7 +114,7 @@ public class ExoticAnimalAdapter<T extends Pet> extends Pet {
 	 */
 	@Override
 	public Integer getAge() {
-		return this.exoticAnimal.getYearsOld();
+		return this.exoticAnimal != null ? this.exoticAnimal.getYearsOld() : super.getAge();
 	}
 	
 	/**

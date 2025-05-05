@@ -161,7 +161,7 @@ public class AdoptionView {
 	 */
 	public void petDetailsDialog(String[] petDetails) {
 		String petMessage = String.format(
-				"Name: %s\nSpecies: %s\nAge: %s", petDetails[0], petDetails[1], petDetails[2]);
+				"ID: %s\nName: %s\nType: %s\nSpecies: %s\nAge: %s\nStatus: %s", petDetails[0], petDetails[1], petDetails[2], petDetails[3], petDetails[4], petDetails[5]);
 		
 		JOptionPane.showMessageDialog(frame, petMessage, "Pet Details", JOptionPane.INFORMATION_MESSAGE);
 	}

@@ -99,12 +99,12 @@ public class AdoptionController <T extends Pet> {
 	 * @param exoticAnimals: Set of ExoticAnimal objects to be adapted with wrapper class.
 	 * @return imported exotic animals.
 	 */
-	private Set<T> importExoticPets(Set<ExoticAnimal> exoticAnimals) {
-		Set<T> tamedExoAnis = new HashSet<T>();
+	private Set<? extends Pet> importExoticPets(Set<ExoticAnimal> exoticAnimals) {
+		Set<Pet> tamedExoAnis = new HashSet<>();
 		for (ExoticAnimal exoAni : exoticAnimals) {
-			tamedExoAnis.add((T) new ExoticAnimalAdapter(exoAni));
+			Pet tamedExoAni = new ExoticAnimalAdapter(exoAni);
+			tamedExoAnis.add(tamedExoAni);
 		}
-		System.out.println(tamedExoAnis);
 		return tamedExoAnis;
 	}
 	
@@ -153,7 +153,7 @@ public class AdoptionController <T extends Pet> {
 				// Remove from stock
 				if (selectedPet.isAdopted()) {
 					// Cannot remove message
-					view.showMessage(selectedPet.getName() + " cannot be removed because they awaiting a home..", "Removal Failure", JOptionPane.WARNING_MESSAGE);
+					view.showMessage(selectedPet.getName() + " cannot be removed because they are awaiting a home..", "Removal Failure", JOptionPane.WARNING_MESSAGE);
 				} else {
 					boolean removed = shelter.removePet(selectedPet);
 					
@@ -187,11 +187,12 @@ public class AdoptionController <T extends Pet> {
 				
 				// Details
 				String[] petDetails = {
-					selectedPet.getName(),
-					selectedPet.getSpecies(),
-					String.valueOf(selectedPet.getAge()),
-					selectedPet.getType(),
-					selectedPet.isAdopted() ? "Adopted" : "Available"
+						selectedPet.getId(),
+					    selectedPet.getName(),
+					    selectedPet.getType(),
+					    selectedPet.getSpecies(),
+					    String.valueOf(selectedPet.getAge()),
+					    selectedPet.isAdopted() ? "Adopted" : "Available"
 				};
 				
 				view.petDetailsDialog(petDetails);
@@ -203,18 +204,18 @@ public class AdoptionController <T extends Pet> {
 	}
 	
 	/**
-	 * Save adopted pets to Json file when the save button is pressed
+	 * Save pets in the shelter to Json file when the save button is pressed
 	 */
 	private void saveButtonPressed() {
-		// Get adopted pets
-		Set<T> adoptedPets = new HashSet<T>();
+		// Get pets
+		Set<T> inStockPets = new HashSet<T>();
 		for (T pet : shelter.getPetsInStock()) {
-			adoptedPets.add(pet);
+			inStockPets.add(pet);
 		}
-		jsonHandler.savePetList(adoptedPets);
+		jsonHandler.savePetList(inStockPets);
 		
 		// File saved message
-		view.showMessage("Adopted pets have been saved!", "Saved!", JOptionPane.INFORMATION_MESSAGE);
+		view.showMessage("Sheltered pets have been saved!", "Saved!", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	/**
@@ -295,7 +296,7 @@ public class AdoptionController <T extends Pet> {
 	 */
 	private List<T> getSortedImportablePets() {
 		// Get pets from shelter
-        Set<T> importableAnimals = shelter.getPetsInStock();
+        Set<T> importableAnimals = shelter.getImportablePets();
         // Change to List for sorting
         List<T> exoAniList = new ArrayList<>(importableAnimals); 
         

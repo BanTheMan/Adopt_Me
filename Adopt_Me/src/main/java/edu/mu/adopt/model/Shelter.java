@@ -1,6 +1,7 @@
 package edu.mu.adopt.model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 
@@ -73,11 +74,15 @@ public class Shelter<T extends Pet> {
 	 * @param badPet
 	 */
 	public void removePetFromStock(T badPet) {
-		for (T pet : inStock) {
-			if (pet.equals(badPet)) {
-				inStock.remove(badPet);
-			}
-		}
+		// This was a pain
+		Iterator<T> iterator = inStock.iterator();
+	    while (iterator.hasNext()) {
+	        T pet = iterator.next();
+	        if (pet.equals(badPet)) {
+	            iterator.remove();  
+	            return;  
+	        }
+	    }
 	}
 	
 //	public T getImportablePet(T pet) {
@@ -102,11 +107,15 @@ public class Shelter<T extends Pet> {
 	 * @param pet
 	 */
 	public void removeImportablePet(T pet) {
-		for (T terriblePet : importable) {
-			if (terriblePet.equals(pet)) {
-				importable.remove(terriblePet);
-			}
-		}
+		// This was a pain 
+		Iterator<T> iterator = importable.iterator();
+	    while (iterator.hasNext()) {
+	        T terriblePet = iterator.next();
+	        if (terriblePet.equals(pet)) {
+	            iterator.remove(); 
+	            return;
+	        }
+	    }
 	}
 	
 	/**
