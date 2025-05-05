@@ -104,6 +104,7 @@ public class AdoptionController <T extends Pet> {
 		for (ExoticAnimal exoAni : exoticAnimals) {
 			tamedExoAnis.add((T) new ExoticAnimalAdapter(exoAni));
 		}
+		System.out.println(tamedExoAnis);
 		return tamedExoAnis;
 	}
 	

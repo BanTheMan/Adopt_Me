@@ -89,6 +89,11 @@ public class ExoticAnimal {
 		return subSpecies;
 	}
 
+	@Override
+	public String toString() {
+		return getAnimalName() + ": " + getYearsOld().toString() + " year old " + getCategory();
+	}
+
 	/**
 	 * Sets sub-species
 	 * @param subSpecies = species of animal

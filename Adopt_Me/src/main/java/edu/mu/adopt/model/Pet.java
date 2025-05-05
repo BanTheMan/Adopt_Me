@@ -6,7 +6,7 @@ import java.util.Objects;
  * MVC Model
  * Author: Brandon Gomes
  */
-public abstract class Pet implements Comparable<Pet> {
+public class Pet implements Comparable<Pet> {
 	
     private String id;
     private String name;
